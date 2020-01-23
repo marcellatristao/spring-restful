@@ -18,6 +18,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.OneToMany;
 import javax.persistence.UniqueConstraint;
 
+import org.hibernate.validator.constraints.br.CPF;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
@@ -39,6 +40,8 @@ public class Usuario implements UserDetails {
 	
 	private String nome;
 	
+	@CPF(message= "Cpf inálido")
+	private String cpf;
 
 	@OneToMany(mappedBy="usuario", orphanRemoval = true, cascade = CascadeType.ALL, fetch =FetchType.LAZY)
 	private List<Telefone> telefones = new ArrayList<Telefone>();
@@ -54,6 +57,13 @@ public class Usuario implements UserDetails {
 	   foreignKey = @ForeignKey (name="role_fk", value = ConstraintMode.CONSTRAINT)))
 	private List<Role> roles; /*Os papeis ou acessos*/
 	
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+	
+	public String getCpf() {
+		return cpf;
+	}
 	
 	public List<Telefone> getTelefones() {
 		return telefones;

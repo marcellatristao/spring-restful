@@ -17,7 +17,7 @@
 	<description>Curso API REST Spring Boot</description>
 
 	<properties>
-		<java.version>11</java.version>
+		<java.version>1.8</java.version>
 		<maven.test.skip>true</maven.test.skip>
 	</properties>
 
@@ -70,7 +70,7 @@
 			<artifactId>spring-security-web</artifactId>
 			<version>5.0.7.RELEASE</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.security</groupId>
 			<artifactId>spring-security-config</artifactId>
@@ -83,6 +83,8 @@
 			<version>0.7.0</version>
 		</dependency>
 
+
+		<!-- https://mvnrepository.com/artifact/com.zaxxer/HikariCP -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
 			<artifactId>HikariCP</artifactId>
@@ -93,6 +95,7 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-cache</artifactId>
 		</dependency>
+
 
 	</dependencies>
 

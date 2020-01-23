@@ -3,6 +3,8 @@ package curso.api.rest.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.HttpStatus;
@@ -28,7 +30,7 @@ public class IndexController {
 	private UsuarioRepository usuarioRepository;
 	
 	
-	/* Serviço RESTful */
+	/* ServiÃ§o RESTful */
 	@GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/json")
 	public ResponseEntity<Usuario> relatorio(@PathVariable (value = "id") Long id
 			                                , @PathVariable (value = "venda") Long venda) {
@@ -40,25 +42,15 @@ public class IndexController {
 	}
 	
 
-	/* Serviço RESTful */
-	@GetMapping(value = "v1/{id}", produces = "application/json", headers = "X-API-Version=v1")
-	public ResponseEntity<Usuario> initV1(@PathVariable (value = "id") Long id) {
+	/* ServiÃ§o RESTful */
+	@GetMapping(value = "/{id}", produces = "application/json")
+	@Cacheable("cacheuser")
+	public ResponseEntity<Usuario> init(@PathVariable (value = "id") Long id) {
 		
 		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		System.out.println("Executando versão 1");
-		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
-	}
-	
-	
-	/* Serviço RESTful */
-	@GetMapping(value = "v2/{id}", produces = "application/json", headers = "X-API-Version=v2")
-	public ResponseEntity<Usuario> initV2(@PathVariable (value = "id") Long id) {
 		
-		Optional<Usuario> usuario = usuarioRepository.findById(id);
-		System.out.println("Executando versão 2");
 		return new ResponseEntity<Usuario>(usuario.get(), HttpStatus.OK);
 	}
-	
 	
 	@DeleteMapping(value = "/{id}", produces = "application/text")
 	public String delete (@PathVariable("id") Long id){
@@ -77,19 +69,23 @@ public class IndexController {
 		return "ok";
 	}
 	
-	/*Controle de cache para agilizar o processamento*/
+
+	/*Vamos supor que o carregamento de usuÃ¡rio seja um processo lento
+	 * e queremos controlar ele com cache para agilizar o processo*/
 	@GetMapping(value = "/", produces = "application/json")
 	@Cacheable("cacheusuarios")
 	public ResponseEntity<List<Usuario>> usuario () throws InterruptedException{
 		
 		List<Usuario> list = (List<Usuario>) usuarioRepository.findAll();
-		Thread.sleep(6000); /*Simula um processo lento*/
+		
+		Thread.sleep(6000);/*Segura o codigo por 6 segunos simulando um processo lento*/
+
 		return new ResponseEntity<List<Usuario>>(list, HttpStatus.OK);
 	}
 	
 	
 	@PostMapping(value = "/", produces = "application/json")
-	public ResponseEntity<Usuario> cadastrar(@RequestBody Usuario usuario) {
+	public ResponseEntity<Usuario> cadastrar(@RequestBody @Valid Usuario usuario) {
 		
 		for (int pos = 0; pos < usuario.getTelefones().size(); pos ++) {
 			usuario.getTelefones().get(pos).setUsuario(usuario);
