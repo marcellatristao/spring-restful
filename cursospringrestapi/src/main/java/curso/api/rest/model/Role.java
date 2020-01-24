@@ -23,7 +23,7 @@ public class Role implements GrantedAuthority {
 	private String nomeRole; /* Papel, exemplo ROLE_SECRETARIO OU ROLE_GERENTE... */
 
 	@Override
-	public String getAuthority() { /* Retorna o nome no papel, acesso ou atorização exemplo ROLE_GERENTE */
+	public String getAuthority() { /* Retorna o nome no papel, acesso ou atorizacao exemplo ROLE_GERENTE */
 		return this.nomeRole;
 	}
 

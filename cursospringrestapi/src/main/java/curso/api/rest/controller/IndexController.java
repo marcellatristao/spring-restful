@@ -30,7 +30,7 @@ public class IndexController {
 	private UsuarioRepository usuarioRepository;
 	
 	
-	/* Serviço RESTful */
+	/* Servico RESTful */
 	@GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/json")
 	public ResponseEntity<Usuario> relatorio(@PathVariable (value = "id") Long id
 			                                , @PathVariable (value = "venda") Long venda) {
@@ -42,7 +42,7 @@ public class IndexController {
 	}
 	
 
-	/* Serviço RESTful */
+	/* Servico RESTful */
 	@GetMapping(value = "/{id}", produces = "application/json")
 	@Cacheable("cacheuser")
 	public ResponseEntity<Usuario> init(@PathVariable (value = "id") Long id) {
@@ -70,7 +70,7 @@ public class IndexController {
 	}
 	
 
-	/*Vamos supor que o carregamento de usuário seja um processo lento
+	/*Vamos supor que o carregamento de usuario seja um processo lento
 	 * e queremos controlar ele com cache para agilizar o processo*/
 	@GetMapping(value = "/", produces = "application/json")
 	@Cacheable("cacheusuarios")
@@ -147,8 +147,5 @@ public class IndexController {
 		return new ResponseEntity("id user :" + iduser + " idvenda :"+ idvenda, HttpStatus.OK);
 		
 	}
-	
-	
-	
 
 }

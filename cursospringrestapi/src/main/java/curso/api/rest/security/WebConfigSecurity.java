@@ -22,28 +22,28 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	private ImplementacaoUserDetailsSercice implementacaoUserDetailsSercice;
 	
 	
-	/*Configura as solicitações de acesso por Http*/
+	/*Configura as solicitacoes de acesso por Http*/
 	@Override
 	protected void configure(HttpSecurity http) throws Exception {
 
-		/*Ativando a proteção contra usuário que não estão validados por TOKEN*/
+		/*Ativando a protecao contra usuario que nao estao validados por TOKEN*/
 		http.csrf().csrfTokenRepository(CookieCsrfTokenRepository.withHttpOnlyFalse())
 		
-		/*Ativando a permissão para acesso a página incial do sistema EX: sistema.com.br/index*/
+		/*Ativando a permissao para acesso a pagina incial do sistema EX: sistema.com.br/index*/
 		.disable().authorizeRequests().antMatchers("/").permitAll()
 		.antMatchers("/index").permitAll()
 		
-		/*URL de Logout - Redireciona após o user deslogar do sistema*/
+		/*URL de Logout - Redireciona o user deslogar do sistema*/
 		.anyRequest().authenticated().and().logout().logoutSuccessUrl("/index")
 		
-		/*Maperia URL de Logout e insvalida o usuário*/
+		/*Maperia URL de Logout e invalida o usuario*/
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
 		
-		/*Filtra requisições de login para autenticação*/
+		/*Filtra requisicoes de login para autenticacao*/
 		.and().addFilterBefore(new JWTLoginFilter("/login", authenticationManager()), 
 									UsernamePasswordAuthenticationFilter.class)
 		
-		/*Filtra demais requisições paa verificar a presenção do TOKEN JWT no HEADER HTTP*/
+		/*Filtra demais requisicoes do TOKEN JWT no HEADER HTTP*/
 		.addFilterBefore(new JwtApiAutenticacaoFilter(), UsernamePasswordAuthenticationFilter.class);
 	
 	}
@@ -53,10 +53,10 @@ public class WebConfigSecurity extends WebSecurityConfigurerAdapter {
 	@Override
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 
-	/*Service que irá consultar o usuário no banco de dados*/	
+	/*Service que ira consultar o usuario no banco de dados*/	
 	auth.userDetailsService(implementacaoUserDetailsSercice)
 	
-	/*Padrão de codigição de senha*/
+	/*Padrao de codificacao de senha*/
 	.passwordEncoder(new BCryptPasswordEncoder());
 	
 	}
