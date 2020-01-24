@@ -43,11 +43,14 @@ public class JWTTokenAutenticacaoService {
 				        .signWith(SignatureAlgorithm.HS512, SECRET).compact(); /*Compactação e algoritmos de geração de senha*/
 		
 		/*Junta token com o prefixo*/
-		String token = TOKEN_PREFIX + " " + JWT; /*Bearer 87878we8we787w8e78w78e78w7e87w*/
+		String token = TOKEN_PREFIX + " " + JWT; /*Bearer ---> numeros aleatorios*/
 		
-		/*Adiciona no cabeçalho http*/
-		response.addHeader(HEADER_STRING, token); /*Authorization: Bearer 87878we8we787w8e78w78e78w7e87w*/
+		/*Adiciona no cabecalho http*/
+		response.addHeader(HEADER_STRING, token); /*Authorization: Bearer ----> numeros aleatorios*/
 		
+		/*Liberando resposta para porta diferente do projeto*/
+		response.addHeader("Access-Control-Allow-Origin", "*");
+	
 		/*Escreve token como responsta no corpo http*/
 		response.getWriter().write("{\"Authorization\": \""+token+"\"}");
 		
