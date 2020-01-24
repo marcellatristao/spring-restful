@@ -40,7 +40,7 @@ public class JWTTokenAutenticacaoService {
 		String JWT = Jwts.builder() /*Chama o gerador de Token*/
 				        .setSubject(username) /*Adicona o usuario*/
 				        .setExpiration(new Date(System.currentTimeMillis() + EXPIRATION_TIME)) /*Tempo de expiracao*/
-				        .signWith(SignatureAlgorithm.HS512, SECRET).compact(); /*Compactação e algoritmos de geracao de senha*/
+				        .signWith(SignatureAlgorithm.HS512, SECRET).compact(); /*Compactacao e algoritmos de geracao de senha*/
 		
 		/*Junta token com o prefixo*/
 		String token = TOKEN_PREFIX + " " + JWT; /*Bearer ---> numeros aleatorios*/
@@ -57,8 +57,8 @@ public class JWTTokenAutenticacaoService {
 	}
 	
 	
-	/*Retorna o usuario validado com token ou caso não seja valido retorna null*/
-	public Authentication getAuhentication(HttpServletRequest request) {
+	/*Retorna o usuario validado com token ou caso nao seja valido retorna null*/
+	public Authentication getAuhentication(HttpServletRequest request, HttpServletResponse response) {
 		
 		/*Pega o token enviado no cabecalho http*/
 		
@@ -86,8 +86,10 @@ public class JWTTokenAutenticacaoService {
 			}
 			
 		}
-	
-		return null; /*Não autorizado*/
+		
+		/*Liberando resposta para porta diferente do projeto*/
+		response.addHeader("Access-Control-Allow-Origin", "*");
+		return null; /*Nao autorizado*/
 		
 	}
 	

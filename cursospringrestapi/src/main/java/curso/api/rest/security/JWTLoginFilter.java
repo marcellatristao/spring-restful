@@ -32,12 +32,12 @@ public class JWTLoginFilter extends AbstractAuthenticationProcessingFilter {
 		
 	}
 
-	/*Retorna o usuário ao processar a autenticação*/
+	/*Retorna o usuario ao processar a autenticacao*/
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
 		
-		/*Está pegando o token para validar*/
+		/*Esta pegando o token para validar*/
 		Usuario user = new ObjectMapper().
 				readValue(request.getInputStream(), Usuario.class);
 		
