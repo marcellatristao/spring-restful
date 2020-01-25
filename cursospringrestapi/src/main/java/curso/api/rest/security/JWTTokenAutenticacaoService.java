@@ -48,9 +48,8 @@ public class JWTTokenAutenticacaoService {
 		/*Adiciona no cabecalho http*/
 		response.addHeader(HEADER_STRING, token); /*Authorization: Bearer ----> numeros aleatorios*/
 		
-		/*Liberando resposta para porta diferente do projeto*/
-		response.addHeader("Access-Control-Allow-Origin", "*");
-	
+		liberacaoCors(response);
+		
 		/*Escreve token como responsta no corpo http*/
 		response.getWriter().write("{\"Authorization\": \""+token+"\"}");
 		
@@ -87,11 +86,25 @@ public class JWTTokenAutenticacaoService {
 			
 		}
 		
-		/*Liberando resposta para porta diferente do projeto*/
-		response.addHeader("Access-Control-Allow-Origin", "*");
+		liberacaoCors(response);
 		return null; /*Nao autorizado*/
 		
 	}
-	
+
+
+	private void liberacaoCors(HttpServletResponse response) {
+		if(response.getHeader("Access-Control-Allow-Origin")== null) {
+			response.addHeader("Access-Control-Allow-Origin", "*");
+		}
+		
+		if(response.getHeader("Access-Control-Allow-Headers")== null) {
+			response.addHeader("Access-Control-Allow-Headers", "*");
+		}
+		
+		if(response.getHeader("Access-Control-Request-Headers")== null) {
+			response.addHeader("Access-Control-Request-Headers", "*");
+		}
+		
+	}
 
 }
