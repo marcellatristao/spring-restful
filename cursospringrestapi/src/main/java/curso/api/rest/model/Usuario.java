@@ -40,7 +40,7 @@ public class Usuario implements UserDetails {
 	
 	private String nome;
 	
-	@CPF(message= "Cpf inálido")
+	@CPF(message= "Cpf invalido")
 	private String cpf;
 
 	@OneToMany(mappedBy="usuario", orphanRemoval = true, cascade = CascadeType.ALL, fetch =FetchType.LAZY)

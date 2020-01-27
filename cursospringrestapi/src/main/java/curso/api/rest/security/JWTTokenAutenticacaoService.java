@@ -105,6 +105,10 @@ public class JWTTokenAutenticacaoService {
 			response.addHeader("Access-Control-Request-Headers", "*");
 		}
 		
+		if(response.getHeader("Access-Control-Allow-Methods")== null) {
+			response.addHeader("Access-Control-Allow-Methods", "*");
+		}
+		
 	}
 
 }
