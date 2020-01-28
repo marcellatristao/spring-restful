@@ -55,7 +55,7 @@ public class Usuario implements UserDetails {
 	
 	inverseJoinColumns = @JoinColumn (name = "role_id", referencedColumnName = "id", table = "role", unique = false, updatable = false,
 	   foreignKey = @ForeignKey (name="role_fk", value = ConstraintMode.CONSTRAINT)))
-	private List<Role> roles; /*Os papeis ou acessos*/
+	private List<Role> roles = new ArrayList<Role>(); /*Os papeis ou acessos*/
 	
 	public void setCpf(String cpf) {
 		this.cpf = cpf;
@@ -131,10 +131,9 @@ public class Usuario implements UserDetails {
 		return true;
 	}
 
-	/*São os acessos do usuário ROLE_ADMIN OU ROLE_VISITANTE*/
+	/*Sao os acessos do usuario ROLE_ADMIN OU ROLE_VISITANTE*/
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
-
 		return roles;
 	}
 
