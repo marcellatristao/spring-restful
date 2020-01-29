@@ -30,7 +30,7 @@ public class IndexController {
 	private UsuarioRepository usuarioRepository;
 	
 	
-	/* Servico RESTful */
+	/*EXEMPLO*/
 	@GetMapping(value = "/{id}/codigovenda/{venda}", produces = "application/json")
 	public ResponseEntity<Usuario> relatorio(@PathVariable (value = "id") Long id
 			                                , @PathVariable (value = "venda") Long venda) {
