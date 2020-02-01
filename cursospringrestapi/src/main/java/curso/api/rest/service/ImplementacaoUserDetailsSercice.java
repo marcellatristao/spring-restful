@@ -21,11 +21,10 @@ public class ImplementacaoUserDetailsSercice implements UserDetailsService {
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		
 		/*Consulta no banco o usuario*/
-		
 		Usuario usuario = usuarioRepository.findUserByLogin(username);
 		
 		if (usuario == null) {
-			throw new UsernameNotFoundException("Usu√°rio n√£o foi encontrado");
+			throw new UsernameNotFoundException("Usu·rio n„o foi encontrado");
 		}
 		
 		return new User(usuario.getLogin(),
